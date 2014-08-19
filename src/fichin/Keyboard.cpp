@@ -1,4 +1,6 @@
 #include "fichin/input/Keyboard.hpp"
+#include <cstring>
+using namespace std;
 
 int Keyboard::formerKeyStatus[4], Keyboard::currentKeyStatus[4];
 
@@ -30,22 +32,6 @@ bool Keyboard::justReleased(const sf::Keyboard::Key &key){
 	unsigned bit = key % (sizeof(int)*8);
 	sf::Keyboard::isKeyPressed(key)?currentKeyStatus[bucket] |= 1<<bit : currentKeyStatus[bucket] &= (0xffffffff ^ (1<<bit));
 	return ((currentKeyStatus[bucket] & (1<<bit)) == 0) && ((formerKeyStatus[bucket] & (1<<bit)) != 0);
-}
-
-bool Keyboard::justPressed(const char &key){
-	return justPressed(getKeyCode(key));
-}
-
-bool Keyboard::pressed(const char &key){
-	return pressed(getKeyCode(key));
-}
-
-bool Keyboard::justReleased(const char &key){
-	return justReleased(getKeyCode(key));
-}
-
-bool Keyboard::released(const char &key){
-	return released(getKeyCode(key));
 }
 
 void Keyboard::update() {

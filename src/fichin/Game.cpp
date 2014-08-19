@@ -1,10 +1,15 @@
 #include "fichin/Game.hpp"
+#include "fichin/input/Keyboard.hpp"
 #include <SFML/Window/Event.hpp>
+
 
 //////////////////////////////////////////////
 
 Game::Game(sf::VideoMode vm){
 	_window.create(vm, "");
+	_window.setFramerateLimit(60);
+	_window.setKeyRepeatEnabled(false);
+	Keyboard::init();
 }
 
 //////////////////////////////////////////////
@@ -29,6 +34,8 @@ int Game::run(Scene *scene){
 				gameOver = true;
 			}
 		}	
+		Keyboard::update();
+		
 		//---*Obtenemos el delta time del loop y reiniciamos el reloj:
 		dt = clock.restart().asSeconds();
 		//---*Actualizamos la escena:

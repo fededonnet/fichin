@@ -1,6 +1,6 @@
 #include "fichin/Game.hpp"
 #include "fichin/input/Keyboard.hpp"
-#include "fichin/input/MouseHandler.hpp"
+#include "fichin/input/Mouse.hpp"
 #include <SFML/Window/Event.hpp>
 
 
@@ -11,6 +11,7 @@ Game::Game(sf::VideoMode vm){
 	_window.setFramerateLimit(60);
 	_window.setKeyRepeatEnabled(false);
 	Keyboard::init();
+	Mouse::init(_window);
 }
 
 //////////////////////////////////////////////
@@ -33,11 +34,10 @@ int Game::run(Scene *scene){
 		while(_window.pollEvent(e)) {
 			if (e.type == sf::Event::Closed) {
 				gameOver = true;
-			}			
-			MouseHandler::getInstance()->listenEvents(e, _window);			
+			}					
 		}	
-		
-		Keyboard::update();		
+		Keyboard::update();
+		Mouse::update();
 		//---*Obtenemos el delta time del loop y reiniciamos el reloj:
 		dt = clock.restart().asSeconds();
 		//---*Actualizamos la escena:
@@ -53,7 +53,6 @@ int Game::run(Scene *scene){
 			_sceneSwitchRequested = false;
 			_currentScene->destroy();
 			_currentScene = _nextScene;
-			MouseHandler::getInstance()->disconnectAll();
 			_currentScene->init();
 		}
 	}

@@ -1,5 +1,5 @@
 #include "fichin/input/Keyboard.hpp"
-#include <cstring>
+#include <cstring>	//memcpy
 using namespace std;
 
 int Keyboard::formerKeyStatus[4], Keyboard::currentKeyStatus[4];

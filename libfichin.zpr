@@ -11,7 +11,7 @@ version_required=20140318
 custom_tabs=0
 tab_use_spaces=0
 explorer_path=
-current_source=include\fichin\utils\FichinUtils.hpp
+current_source=include\fichin\Actor.hpp
 path_char=\
 [source]
 path=src\fichin\Game.cpp
@@ -39,7 +39,7 @@ cursor=11:23
 open=true
 [header]
 path=include\fichin\Actor.hpp
-cursor=0:0
+cursor=19:0
 open=true
 [header]
 path=include\fichin\Game.hpp
@@ -51,7 +51,7 @@ cursor=14:69
 open=true
 [header]
 path=include\fichin\SpriteActor.hpp
-cursor=0:0
+cursor=11:7
 open=true
 [header]
 path=include\fichin\components\KinematicsController.hpp
@@ -106,7 +106,7 @@ libraries_dirs=${MINGW_DIR}\SFML-2.1\lib
 libraries=sfml-graphics-s sfml-window-s sfml-audio-s sfml-system-s sfml-network-s 
 strip_executable=0
 console_program=0
-dont_generate_exe=0
+dont_generate_exe=1
 [lib_to_build]
 libname=fichin
 path=lib

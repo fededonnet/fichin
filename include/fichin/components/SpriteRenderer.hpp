@@ -15,7 +15,7 @@ public:
 	inline void flipX(bool flip = true){ _flipX = flip; updateTexCoords(); };
 	inline void flipY(bool flip = true){ _flipY = flip; updateTexCoords(); };
 	
-	inline void setColor(const sf::Color &color);
+	void setColor(const sf::Color &color);
 	inline const sf::Color &getColor();
 	
 	void setAlpha(sf::Uint8 alpha);

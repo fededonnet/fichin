@@ -2,7 +2,7 @@
 #define __KEYBOARD_HPP__
 #include <SFML/Window/Keyboard.hpp>
 
-class Keyboard{
+class fKeyboard{
 public:
 	static bool pressed(const sf::Keyboard::Key &key);
 	static bool justPressed(const sf::Keyboard::Key &key);
@@ -14,7 +14,7 @@ private:
 	static void init();
 	static void update();
 
-	friend class Game;
+	friend class fGame;
 };
 
 #endif // __KEYBOARD_HPP__

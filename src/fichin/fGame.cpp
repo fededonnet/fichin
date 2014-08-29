@@ -1,29 +1,30 @@
-#include "fichin/Game.hpp"
-#include "fichin/input/Keyboard.hpp"
-#include "fichin/input/Mouse.hpp"
+#include "fichin/fGame.hpp"
+#include "fichin/input/fKeyboard.hpp"
+#include "fichin/input/fMouse.hpp"
 #include <SFML/Window/Event.hpp>
 
 
 //////////////////////////////////////////////
 
-Game::Game(sf::VideoMode vm){
+fGame::fGame(sf::VideoMode vm){
 	_window.create(vm, "");
 	_window.setFramerateLimit(60);
 	_window.setKeyRepeatEnabled(false);
-	Keyboard::init();
-	Mouse::init(_window);
+	fKeyboard::init();
+	fMouse::init(_window);
+	srand (time(NULL));
 }
 
 //////////////////////////////////////////////
 
-int Game::run(Scene *scene){
+int fGame::run(fScene *scene){
 	_sceneSwitchRequested = false;
 	_currentScene = scene;
 	_currentScene->init();
 	bool gameOver = false;
 	sf::RenderStates states;
 	//---*inicializa el generador de nro aleatorios:
-	srand (time(NULL));
+	
 	//---*Objeto event:
 	sf::Event e;	
 	//---*Reloj (para obtener el delta time):
@@ -36,8 +37,8 @@ int Game::run(Scene *scene){
 				gameOver = true;
 			}					
 		}	
-		Keyboard::update();
-		Mouse::update();
+		fKeyboard::update();
+		fMouse::update();
 		//---*Obtenemos el delta time del loop y reiniciamos el reloj:
 		dt = clock.restart().asSeconds();
 		//---*Actualizamos la escena:
@@ -62,7 +63,7 @@ int Game::run(Scene *scene){
 
 //////////////////////////////////////////////
 
-void Game::switchScene(Scene *nextScene){
+void fGame::switchScene(fScene *nextScene){
 	_nextScene = nextScene;
 	_sceneSwitchRequested = true;
 }

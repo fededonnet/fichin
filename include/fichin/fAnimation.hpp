@@ -1,0 +1,90 @@
+#ifndef __FANIMATION_HPP__
+#define __FANIMATION_HPP__
+
+////////////////////////////////////////////////////////////
+// Headers
+////////////////////////////////////////////////////////////
+
+#include <initializer_list>
+#include <vector>
+#include <string>
+
+class fAnimation{
+public:
+	////////////////////////////////////////////////////////////
+	/// \brief Construye la animacion
+	///
+	/// \param name 	Nombre con el que se identificara a la animación para reproducirla luego
+	/// \param frames	Lista de enteros con los numeros de cuadros que conforman la animación
+	/// \param fps 		Velocidad de la animación en cantidad de cuadros por segundo
+	/// \param loop		Si la animación debe reiniciar automáticamente al finalizar
+	////////////////////////////////////////////////////////////
+	fAnimation(const std::string &name, const std::initializer_list<int> &frames, float fps = 10, bool loop = true);
+	
+	///////////////////////////////////////////////////////////
+	/// \brief Devuelve la duración de cada cuadro de la animación
+	///
+	/// \return La duración de cada cuadro de la animación
+	////////////////////////////////////////////////////////////
+	float getFrameDuration() const;
+	
+	///////////////////////////////////////////////////////////
+	/// \brief Devuelve la cantidad de cuadros que componen la animación
+	///
+	/// \return Cantidad de cuadros que componen la animación
+	////////////////////////////////////////////////////////////
+	inline int getFrameCount() const;
+	
+	///////////////////////////////////////////////////////////
+	/// \brief Devuelve el índice de un determinado cuadro de la animación
+	///
+	/// \return El i-ésimo cuadro de la animación
+	////////////////////////////////////////////////////////////
+	inline int getFrame(int i) const;
+	
+	///////////////////////////////////////////////////////////
+	/// \brief Devuelve el nombre de la animación
+	///
+	/// \return Una cadena con el nombre de la animación
+	////////////////////////////////////////////////////////////
+	inline const std::string &getName() const;
+	
+	///////////////////////////////////////////////////////////
+	/// \brief Devuelve si la animación se ejecuta en un loop, es decir, vuelve a comenzar al terminar
+	///
+	/// \return Un valor de verdad indicando si la animación se repite 
+	////////////////////////////////////////////////////////////
+	inline bool loops() const;
+	
+private:
+	////////////////////////////////////////////////////////////
+	// Member data
+	////////////////////////////////////////////////////////////
+	float _frameDuration;		///< Duración de cada cuadro
+	std::vector<int> _frames;	///< Indices de los cuadros que componen la animación
+	std::string _name;			///< Nombre de la animación
+	bool _loop;					///< Debe la animacion comenzar de nuevo automáticamente al finalizar?
+};
+
+
+////////////////////////////////////////////////////////////
+// Inline functions implementation
+////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+inline float fAnimation::getFrameDuration() const { return _frameDuration; }
+
+////////////////////////////////////////////////////////////////////////////////
+inline int fAnimation::getFrameCount() const { return _frames.size(); }
+
+////////////////////////////////////////////////////////////////////////////////
+inline int fAnimation::getFrame(int i) const{ return _frames[i]; }
+
+////////////////////////////////////////////////////////////////////////////////
+inline bool fAnimation::loops() const{ return _loop; }
+
+////////////////////////////////////////////////////////////////////////////////
+inline const std::string &fAnimation::getName() const{ return _name; }
+
+
+#endif // __FANIMATION_HPP__

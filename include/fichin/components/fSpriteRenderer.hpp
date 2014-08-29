@@ -1,5 +1,5 @@
-#ifndef __SPRITERENDERER_HPP__
-#define __SPRITERENDERER_HPP__
+#ifndef __FSPRITERENDERER_HPP__
+#define __FSPRITERENDERER_HPP__
 
 #include <SFML/Graphics/BlendMode.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -8,9 +8,9 @@
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
-class SpriteRenderer{
+class fSpriteRenderer{
 public:
-	SpriteRenderer();
+	fSpriteRenderer();
 	void setTransformable(const sf::Transformable &t);
 	inline void flipX(bool flip = true){ _flipX = flip; updateTexCoords(); };
 	inline void flipY(bool flip = true){ _flipY = flip; updateTexCoords(); };
@@ -24,6 +24,7 @@ public:
 	inline void setBlendMode(sf::BlendMode blend) {_blendMode = blend;};
 	inline sf::BlendMode getBlendMode(){return _blendMode;};
 	
+	void setTexture(const std::string &textureName);
 	void setTexture(const sf::Texture &texture);
 	void setTexture(const sf::Texture *texture, const sf::IntRect *rect = NULL);
 	
@@ -47,4 +48,4 @@ private:
 	bool _flipX, _flipY;
 };
 
-#endif	// __SPRITERENDERER_HPP__
+#endif	// __FSPRITERENDERER_HPP__

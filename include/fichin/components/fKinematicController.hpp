@@ -1,10 +1,10 @@
-#ifndef __KINEMATICS_HPP__
-#define __KINEMATICS_HPP__
+#ifndef __FKINEMATICCONTROLLER_HPP__
+#define __FKINEMATICCONTROLLER_HPP__
 #include <SFML/Graphics/Transformable.hpp>
 
-class KinematicsController{
+class fKinematicController{
 public:
-	KinematicsController();
+	fKinematicController();
 	inline void setTransformable(sf::Transformable &t){_transform = &t; };
 
 	inline void setVelocity(sf::Vector2f newVel) { _velocity = newVel; };
@@ -51,4 +51,4 @@ private:
 	void updateVelocities(float dt);
 };
 
-#endif // __KINEMATICS_HPP__
+#endif // __FKINEMATICCONTROLLER_HPP__

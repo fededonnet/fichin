@@ -1,17 +1,18 @@
-#include "fichin/components/SpriteRenderer.hpp"
+#include "fichin/components/fSpriteRenderer.hpp"
+#include "../../include/fichin/fResourceManager.hpp"
 
-SpriteRenderer::SpriteRenderer(){
+fSpriteRenderer::fSpriteRenderer(){
 	_flipX = _flipY = false;
 	_texture = NULL;
 	_textureRect = NULL;
 	//_blendMode = sf::BlendMode::BlendAlpha;
 }
 
-void SpriteRenderer::setTransformable(const sf::Transformable &t){
+void fSpriteRenderer::setTransformable(const sf::Transformable &t){
 	_transform = &t;
 }
 
-void SpriteRenderer::updatePositions() {
+void fSpriteRenderer::updatePositions() {
 	int width, height;
 	if(_textureRect != NULL){
 		width = _textureRect->width;
@@ -21,7 +22,6 @@ void SpriteRenderer::updatePositions() {
 		width = texSize.x;
 		height = texSize.y; 
 	}
-	width = _textureRect?_textureRect->height:_texture->getSize().y;
 	_vertices[0].position = sf::Vector2f(0.f, 0.f);
 	_vertices[1].position = sf::Vector2f(0.f, height);
 	_vertices[2].position = sf::Vector2f(width, height);
@@ -32,7 +32,7 @@ void SpriteRenderer::updatePositions() {
 	// 0 3
 }
 
-void SpriteRenderer::updateTexCoords(){
+void fSpriteRenderer::updateTexCoords(){
 	float left, right, top, bottom;
 	if(_textureRect != NULL){
 		left   = _textureRect->left;
@@ -51,7 +51,7 @@ void SpriteRenderer::updateTexCoords(){
 	_vertices[3].texCoords = sf::Vector2f(_flipX?left:right, _flipY?bottom:top);
 }
 
-void SpriteRenderer::drawTo(sf::RenderTarget &target, sf::RenderStates states) const {
+void fSpriteRenderer::drawTo(sf::RenderTarget &target, sf::RenderStates states) const {
 	if(_texture != NULL){
 		states.transform *= _transform->getTransform();
 		states.texture = _texture;
@@ -60,42 +60,46 @@ void SpriteRenderer::drawTo(sf::RenderTarget &target, sf::RenderStates states) c
 	}
 }
 
+void fSpriteRenderer::setTexture(const std::string &textureName){
+	setTexture(fResourceManager<sf::Texture>::get(textureName));
+}
 
-void SpriteRenderer::setColor(const sf::Color &color){
+
+void fSpriteRenderer::setColor(const sf::Color &color){
 	for(int i = 0; i<4; ++i){
 		_vertices[i].color = color;
 	}	
 }
 
-const sf::Color &SpriteRenderer::getColor(){
+const sf::Color &fSpriteRenderer::getColor(){
 	return _vertices[0].color;
 }
 
-sf::Uint8 SpriteRenderer::getAlpha(){
+sf::Uint8 fSpriteRenderer::getAlpha(){
 	return _vertices[0].color.a;	
 }
 
-void SpriteRenderer::setAlpha(sf::Uint8 alpha){
+void fSpriteRenderer::setAlpha(sf::Uint8 alpha){
 	for(int i = 0; i<4; ++i){
 		_vertices[i].color.a = alpha;
 	}
 }
 
 
-void SpriteRenderer::setTextureRect(const sf::IntRect *rect){
+void fSpriteRenderer::setTextureRect(const sf::IntRect *rect){
 	_textureRect = rect;
 	updateTexCoords();
 	updatePositions();
 }
 
 
-void SpriteRenderer::setTexture(const sf::Texture &texture){
+void fSpriteRenderer::setTexture(const sf::Texture &texture){
 	_texture = &texture;
 	setTextureRect();
 }
 
 
-void SpriteRenderer::setTexture(const sf::Texture *texture, const sf::IntRect *rect){
+void fSpriteRenderer::setTexture(const sf::Texture *texture, const sf::IntRect *rect){
 	_texture = texture;
 	_textureRect = rect;
 	updateTexCoords();

@@ -1,18 +1,22 @@
-#include "fichin/components/fSpriteRenderer.hpp"
-#include "../../include/fichin/fResourceManager.hpp"
+#include <fichin/components/fSpriteRenderer.hpp>
+#include <fichin/fResourceManager.hpp>
 
-fSpriteRenderer::fSpriteRenderer(){
-	_flipX = _flipY = false;
-	_texture = NULL;
-	_textureRect = NULL;
-	//_blendMode = sf::BlendMode::BlendAlpha;
+/////////////////////////////////////////////////
+
+fSpriteRenderer::fSpriteRenderer(const sf::Transformable &t):
+_transform(&t),
+_texture(nullptr),
+_textureRect(nullptr),
+_flipX(false),
+_flipY(false)
+{
+	
 }
 
-void fSpriteRenderer::setTransformable(const sf::Transformable &t){
-	_transform = &t;
-}
+/////////////////////////////////////////////////
 
-void fSpriteRenderer::updatePositions() {
+void fSpriteRenderer::updatePositions()
+{
 	int width, height;
 	if(_textureRect != NULL){
 		width = _textureRect->width;
@@ -26,13 +30,12 @@ void fSpriteRenderer::updatePositions() {
 	_vertices[1].position = sf::Vector2f(0.f, height);
 	_vertices[2].position = sf::Vector2f(width, height);
 	_vertices[3].position = sf::Vector2f(width, 0.f);
-	
-	// 1-2
-	// | |
-	// 0 3
 }
 
-void fSpriteRenderer::updateTexCoords(){
+/////////////////////////////////////////////////
+
+void fSpriteRenderer::updateTexCoords()
+{
 	float left, right, top, bottom;
 	if(_textureRect != NULL){
 		left   = _textureRect->left;
@@ -51,58 +54,95 @@ void fSpriteRenderer::updateTexCoords(){
 	_vertices[3].texCoords = sf::Vector2f(_flipX?left:right, _flipY?bottom:top);
 }
 
-void fSpriteRenderer::drawTo(sf::RenderTarget &target, sf::RenderStates states) const {
+/////////////////////////////////////////////////
+
+void fSpriteRenderer::draw(sf::RenderTarget &target, sf::RenderStates states) const
+{
 	if(_texture != NULL){
 		states.transform *= _transform->getTransform();
 		states.texture = _texture;
 		states.blendMode = _blendMode;
-		target.draw(_vertices, 4, sf::Quads, states);
+		target.draw(_vertices, 4, sf::TrianglesStrip, states);
 	}
 }
 
-void fSpriteRenderer::setTexture(const std::string &textureName){
-	setTexture(fResourceManager<sf::Texture>::get(textureName));
+/////////////////////////////////////////////////
+
+void fSpriteRenderer::setTexture(const std::string &textureName)
+{
+	setTexture(fResourceManager::loadFromFile<sf::Texture>(textureName));
 }
 
+/////////////////////////////////////////////////
 
-void fSpriteRenderer::setColor(const sf::Color &color){
+void fSpriteRenderer::setColor(const sf::Color &color)
+{
 	for(int i = 0; i<4; ++i){
 		_vertices[i].color = color;
 	}	
 }
 
-const sf::Color &fSpriteRenderer::getColor(){
+/////////////////////////////////////////////////
+
+const sf::Color &fSpriteRenderer::getColor()
+{
 	return _vertices[0].color;
 }
 
-sf::Uint8 fSpriteRenderer::getAlpha(){
+/////////////////////////////////////////////////
+
+sf::Uint8 fSpriteRenderer::getAlpha()
+{
 	return _vertices[0].color.a;	
 }
 
-void fSpriteRenderer::setAlpha(sf::Uint8 alpha){
+/////////////////////////////////////////////////
+
+void fSpriteRenderer::setAlpha(sf::Uint8 alpha)
+{
 	for(int i = 0; i<4; ++i){
 		_vertices[i].color.a = alpha;
 	}
 }
 
+/////////////////////////////////////////////////
 
-void fSpriteRenderer::setTextureRect(const sf::IntRect *rect){
+void fSpriteRenderer::setTextureRect(const sf::IntRect *rect)
+{
 	_textureRect = rect;
 	updateTexCoords();
 	updatePositions();
 }
 
+/////////////////////////////////////////////////
 
-void fSpriteRenderer::setTexture(const sf::Texture &texture){
+void fSpriteRenderer::setTexture(const sf::Texture &texture)
+{
 	_texture = &texture;
 	setTextureRect();
 }
 
+/////////////////////////////////////////////////
 
-void fSpriteRenderer::setTexture(const sf::Texture *texture, const sf::IntRect *rect){
+void fSpriteRenderer::setTexture(const sf::Texture *texture, const sf::IntRect *rect)
+{
 	_texture = texture;
 	_textureRect = rect;
 	updateTexCoords();
 	updatePositions();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+void fSpriteRenderer::flipX(bool flip)
+{ 
+	_flipX = flip;
+	updateTexCoords();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+void fSpriteRenderer::flipY(bool flip)
+{
+	_flipY = flip;
+	updateTexCoords();
 }
 

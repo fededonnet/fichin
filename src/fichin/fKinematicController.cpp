@@ -1,18 +1,30 @@
-#include "fichin/components/fKinematicController.hpp"
+#include <fichin/components/fKinematicController.hpp>
 
-fKinematicController::fKinematicController(){
-	_velocity.x = _velocity.y = 0;
-	_acceleration.x = _acceleration.y = 0;
-	_maxVelocity.x = _maxVelocity.y = 0;
-	_drag.x = _drag.y = 0;
-	_angularVelocity = _maxAngularVelocity = _angularAcceleration = _angularDrag = 0;
+////////////////////////////////////////////////////////////
+
+fKinematicController::fKinematicController(sf::Transformable &t):
+_transform(&t),
+_velocity(0, 0),
+_maxVelocity(0, 0),
+_acceleration(0, 0),
+_drag(0, 0),
+_angularVelocity(0),
+_angularAcceleration(0),
+_maxAngularVelocity(0),
+_angularDrag(0)
+{
+	
 }
 
-void fKinematicController::update(float dt){
+////////////////////////////////////////////////////////////
+
+void fKinematicController::updateKinematics(float dt){
 	updateVelocities(dt);
 	_transform->move(_velocity.x * dt, _velocity.y * dt);
 	_transform->rotate(_angularVelocity * dt);
 }
+
+////////////////////////////////////////////////////////////
 
 void fKinematicController::updateVelocities(float dt){
 	_velocity.x = computeVelocity(_velocity.x, _acceleration.x, _drag.x, _maxVelocity.x, dt);
@@ -20,6 +32,7 @@ void fKinematicController::updateVelocities(float dt){
 	_angularVelocity = computeVelocity(_angularVelocity, _angularAcceleration, _angularDrag, _maxAngularVelocity, dt);
 }
 
+////////////////////////////////////////////////////////////
 
 float fKinematicController::computeVelocity(float velocity, float acceleration, float drag, float maxVelocity, float dt){
 	// apply acceleration/drag
@@ -46,3 +59,4 @@ float fKinematicController::computeVelocity(float velocity, float acceleration, 
 	}
 	return velocity;
 }	
+

@@ -4,27 +4,37 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
-
 #include <initializer_list>
 #include <vector>
 #include <string>
 
-class fAnimation{
+////////////////////////////////////////////////////////////
+/// \brief 	Clase para represenar la animación de un sprite.
+///			Ésta clase está pensada para uso interno y es
+///			empleada por fAnimationController en conjunto
+///			con un objeto de tipo fSpritesheet.
+///
+///	\see fAnimationController fSpritesheet
+///
+////////////////////////////////////////////////////////////
+class fAnimation
+{
 public:
 	////////////////////////////////////////////////////////////
-	/// \brief Construye la animacion
+	/// \brief Construye una animación
 	///
-	/// \param name 	Nombre con el que se identificara a la animación para reproducirla luego
-	/// \param frames	Lista de enteros con los numeros de cuadros que conforman la animación
+	/// \param name 	Nombre de la animación
+	/// \param frames	Indices de los cuadros del fSpritesheet que conforman la animación
 	/// \param fps 		Velocidad de la animación en cantidad de cuadros por segundo
-	/// \param loop		Si la animación debe reiniciar automáticamente al finalizar
+	/// \param loop		Indica si la animación debe reiniciar automáticamente al finalizar
 	////////////////////////////////////////////////////////////
 	fAnimation(const std::string &name, const std::initializer_list<int> &frames, float fps = 10, bool loop = true);
 	
 	///////////////////////////////////////////////////////////
-	/// \brief Devuelve la duración de cada cuadro de la animación
+	/// \brief 	Devuelve la duración de un cuadro de la animación.
+	///			Todos los cuadros tienen la misma duración
 	///
-	/// \return La duración de cada cuadro de la animación
+	/// \return Duración (en segundos) de un cuadro de la animación
 	////////////////////////////////////////////////////////////
 	float getFrameDuration() const;
 	
@@ -33,34 +43,37 @@ public:
 	///
 	/// \return Cantidad de cuadros que componen la animación
 	////////////////////////////////////////////////////////////
-	inline int getFrameCount() const;
+	int getFrameCount() const;
 	
 	///////////////////////////////////////////////////////////
-	/// \brief Devuelve el índice de un determinado cuadro de la animación
+	/// \brief 	Devuelve el número de cuadro dentro del fSpritesheet
+	///			para un determinado cuadro de la animación
+	/// 
+	/// \param 	i	Ordinal del cuadro la animación cuyo cuadro dentro del fSpritesheet se desea conocer
 	///
-	/// \return El i-ésimo cuadro de la animación
+	/// \return Número de cuadro, dentro del fSpritesheet, del i-ésimo cuadro de la animación
 	////////////////////////////////////////////////////////////
-	inline int getFrame(int i) const;
+	int getFrame(int i) const;
 	
 	///////////////////////////////////////////////////////////
 	/// \brief Devuelve el nombre de la animación
 	///
-	/// \return Una cadena con el nombre de la animación
+	/// \return Nombre de la animación
 	////////////////////////////////////////////////////////////
-	inline const std::string &getName() const;
+	const std::string &getName() const;
 	
 	///////////////////////////////////////////////////////////
-	/// \brief Devuelve si la animación se ejecuta en un loop, es decir, vuelve a comenzar al terminar
+	/// \brief Devuelve si la animación se ejecuta en un bucle, es decir, vuelve a comenzar al terminar
 	///
-	/// \return Un valor de verdad indicando si la animación se repite 
+	/// \return Si la animación debe o no volver a comenzar cuando haya terminado
 	////////////////////////////////////////////////////////////
-	inline bool loops() const;
+	bool loops() const;
 	
 private:
 	////////////////////////////////////////////////////////////
 	// Member data
 	////////////////////////////////////////////////////////////
-	float _frameDuration;		///< Duración de cada cuadro
+	float _frameDuration;		///< Duración de un cuadro de animación
 	std::vector<int> _frames;	///< Indices de los cuadros que componen la animación
 	std::string _name;			///< Nombre de la animación
 	bool _loop;					///< Debe la animacion comenzar de nuevo automáticamente al finalizar?

@@ -1,12 +1,13 @@
-#include "fichin/fGame.hpp"
-#include "fichin/input/fKeyboard.hpp"
-#include "fichin/input/fMouse.hpp"
 #include <SFML/Window/Event.hpp>
-
+#include <fichin/fGame.hpp>
+#include <fichin/input/fKeyboard.hpp>
+#include <fichin/input/fMouse.hpp>
 
 //////////////////////////////////////////////
 
-fGame::fGame(sf::VideoMode vm){
+fGame::fGame(sf::VideoMode vm):
+_sceneSwitchRequested(false)
+{
 	_window.create(vm, "");
 	_window.setFramerateLimit(60);
 	_window.setKeyRepeatEnabled(false);
@@ -17,20 +18,19 @@ fGame::fGame(sf::VideoMode vm){
 
 //////////////////////////////////////////////
 
-int fGame::run(fScene *scene){
-	_sceneSwitchRequested = false;
+int fGame::run(fScene *scene)
+{
 	_currentScene = scene;
 	_currentScene->init();
 	bool gameOver = false;
+
 	sf::RenderStates states;
-	//---*inicializa el generador de nro aleatorios:
-	
-	//---*Objeto event:
 	sf::Event e;	
-	//---*Reloj (para obtener el delta time):
 	sf::Clock clock;
-	float dt = 0.0f;
-	//---*Loop principal del Juego:
+	
+	float dt = .0f;
+	
+	/// bucle de juego
 	while (!gameOver) {
 		while(_window.pollEvent(e)) {
 			if (e.type == sf::Event::Closed) {
@@ -39,15 +39,10 @@ int fGame::run(fScene *scene){
 		}	
 		fKeyboard::update();
 		fMouse::update();
-		//---*Obtenemos el delta time del loop y reiniciamos el reloj:
 		dt = clock.restart().asSeconds();
-		//---*Actualizamos la escena:
 		scene->update(dt);		
-		//---*Limpiamos la pantalla (con color negro):
-		_window.clear(sf::Color::Black);		
-		//---*Dibujamos la escena:
+		_window.clear(sf::Color::Black);
 		scene->draw(_window, states);
-		//---*Mostramos el contenido del window:
 		_window.display();		
 		
 		if(_sceneSwitchRequested){

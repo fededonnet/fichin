@@ -1,27 +1,33 @@
-#include "fichin/fGroup.hpp"
+#include <fichin/fGroup.hpp>
 
+//////////////////////////////////////////////
 
 void fGroup::update(float dt){
-	fActor *a;
-	for(int i = 0; i<_members.size(); i++){
-		a = _members[i];
-		if(a->isAlive()) a->update(dt);
+	for(std::vector<fActor *>::iterator i = _members.begin(); i<_members.end(); ++i){
+		if((*i)->isAlive()) (*i)->update(dt);
 	}
 }
 
+//////////////////////////////////////////////
 
 void fGroup::draw(sf::RenderTarget &w, sf::RenderStates s) const{
-	fActor *a;
-	for(int i = 0; i<_members.size(); i++){
-		a = _members[i];
-		if(a->isVisible()) a->draw(w, s);
+	for(std::vector<fActor *>::const_iterator i = _members.begin(); i<_members.end(); ++i){
+		if((*i)->isVisible()) (*i)->draw(w, s);
 	}
 }
-	
+
+//////////////////////////////////////////////
 
 void fGroup::add(fActor *actor){
 	_members.push_back(actor);
 }
 	
+//////////////////////////////////////////////
+
+fGroup::~fGroup(){
+	for(std::vector<fActor *>::iterator i = _members.begin(); i<_members.end(); ++i){
+		delete (*i);
+	}
+}
 
 

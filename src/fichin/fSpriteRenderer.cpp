@@ -28,8 +28,8 @@ void fSpriteRenderer::updatePositions()
 	}
 	_vertices[0].position = sf::Vector2f(0.f, 0.f);
 	_vertices[1].position = sf::Vector2f(0.f, height);
-	_vertices[2].position = sf::Vector2f(width, height);
-	_vertices[3].position = sf::Vector2f(width, 0.f);
+	_vertices[2].position = sf::Vector2f(width, 0.f);	
+	_vertices[3].position = sf::Vector2f(width, height);	
 }
 
 /////////////////////////////////////////////////
@@ -50,8 +50,8 @@ void fSpriteRenderer::updateTexCoords()
 	}
 	_vertices[0].texCoords = sf::Vector2f(_flipX?right:left, _flipY?bottom:top);
 	_vertices[1].texCoords = sf::Vector2f(_flipX?right:left, _flipY?top:bottom);
-	_vertices[2].texCoords = sf::Vector2f(_flipX?left:right, _flipY?top:bottom);
-	_vertices[3].texCoords = sf::Vector2f(_flipX?left:right, _flipY?bottom:top);
+	_vertices[2].texCoords = sf::Vector2f(_flipX?left:right, _flipY?bottom:top);
+	_vertices[3].texCoords = sf::Vector2f(_flipX?left:right, _flipY?top:bottom);	
 }
 
 /////////////////////////////////////////////////

@@ -1,5 +1,7 @@
 #include <fichin/components/fAnimationController.hpp>
 #include <string>
+#include <iostream>
+using namespace std;
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -25,13 +27,14 @@ void fAnimationController::playAnimation(const std::string &name, bool restart)
 
 void fAnimationController::playAnimation(const fAnimation &anim, bool restart)
 {
-	if(_animation != &anim || restart)
+	if(!_animation || _animation != &anim || restart)
 	{
 		_animation = &anim;
 		_isPlaying = true;
 		_frameElapsed = 0;
 		_currentFrame = 0;
-		setFrame(0);
+		// no usar setFrame()
+		_spriteRenderer->setTextureRect(&_spritesheet->getRect(_animation->getFrame(_currentFrame)));
 	}
 }
 
@@ -80,6 +83,7 @@ void fAnimationController::setFrame(int frame)
 
 void fAnimationController::updateAnimation(float dt)
 {
+	cout<<_isPlaying<<" "<<_animation <<" "<<_spritesheet <<endl;
 	if(_isPlaying && _animation != nullptr && _spritesheet != nullptr)
 	{
 		_frameElapsed += dt;
@@ -89,12 +93,13 @@ void fAnimationController::updateAnimation(float dt)
 			++_currentFrame;
 			if(_currentFrame < _animation->getFrameCount())
 			{
-				setFrame(_animation->getFrame(_currentFrame));
+				//no usar setFrame()
+				_spriteRenderer->setTextureRect(&_spritesheet->getRect(_animation->getFrame(_currentFrame)));
 			}
 			else if(_animation->loops())
 			{
 				_currentFrame = 0;
-				setFrame(_animation->getFrame(_currentFrame));
+				_spriteRenderer->setTextureRect(&_spritesheet->getRect(_animation->getFrame(_currentFrame)));
 			}
 			else
 			{

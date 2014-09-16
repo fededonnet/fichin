@@ -12,8 +12,15 @@ _frameElapsed(0),
 _isPlaying(false),
 _spriteRenderer(&renderer),
 _spritesheet(nullptr)
+, animationEndCallback(nullptr)
 {
 	
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+void fAnimationController::setAnimationCallback(std::function<void(std::string const&) callback) {
+	animationEndCallback = callback;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -83,7 +90,6 @@ void fAnimationController::setFrame(int frame)
 
 void fAnimationController::updateAnimation(float dt)
 {
-	cout<<_isPlaying<<" "<<_animation <<" "<<_spritesheet <<endl;
 	if(_isPlaying && _animation != nullptr && _spritesheet != nullptr)
 	{
 		_frameElapsed += dt;
@@ -96,14 +102,18 @@ void fAnimationController::updateAnimation(float dt)
 				//no usar setFrame()
 				_spriteRenderer->setTextureRect(&_spritesheet->getRect(_animation->getFrame(_currentFrame)));
 			}
-			else if(_animation->loops())
-			{
-				_currentFrame = 0;
-				_spriteRenderer->setTextureRect(&_spritesheet->getRect(_animation->getFrame(_currentFrame)));
-			}
-			else
-			{
-				_isPlaying = false;
+			else {
+				if(animationEndCallback != nullptr) {
+					animationEndCallback(_animation->getName());
+				}
+				
+				if(_animation->loops())
+				{
+					_currentFrame = 0;
+					_spriteRenderer->setTextureRect(&_spritesheet->getRect(_animation->getFrame(_currentFrame)));
+				} else 	{
+					_isPlaying = false;
+				}
 			}
 			
 		}

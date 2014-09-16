@@ -122,7 +122,13 @@ protected:
 	/// \see fSpritesheet
 	////////////////////////////////////////////////////////////
 	void setSpritesheet(const sf::Texture &texture, int frameWidth, int frameHeight = -1, const std::string &name = "");
-
+	
+	////////////////////////////////////////////////////////////
+	/// \brief	Asigna un callback que va a ser llamado cada vez que termina una animación
+	/// \param callback 	std::function que recibe la referencia constante de un std::string
+	////////////////////////////////////////////////////////////
+	void setAnimationCallback(std::function<void(std::string const&) callback);
+	
 private:
 	const fAnimation *_animation;		///<	Objeto fAnimation asociado
 	int _currentFrame;					///<	Numero de cuadro que se está mostrando de la animación 
@@ -130,6 +136,7 @@ private:
 	bool _isPlaying;					///<	Si la animación está o no reproduciendose
 	fSpriteRenderer *_spriteRenderer;	///<	El objeto fSpriteRenderer al cual se dibujan los cuadros
 	const fSpritesheet *_spritesheet;	///<	Objeto fSpritesheet asociado
+	std::function<void(std::string const&)> animationEndCallback; ///<	Objeto std::function que sirve de callback al finalizar una animación.
 };
 	
 

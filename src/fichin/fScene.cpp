@@ -32,7 +32,9 @@ void fScene::destroy()
 
 void fScene::update(float dt)
 {
-	_root.update(dt);
+	if(!_isPaused) {
+		_root.update(dt);
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////

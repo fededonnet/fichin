@@ -1,3 +1,4 @@
+
 #include <SFML/Window/Event.hpp>
 #include <fichin/fGame.hpp>
 #include <fichin/input/fKeyboard.hpp>
@@ -44,7 +45,7 @@ int fGame::run(fScene *scene)
 	_currentScene = scene;
 	_currentScene->init();
 	bool gameOver = false;
-
+	
 	sf::RenderStates states;
 	sf::Event e;	
 	sf::Clock clock;
@@ -76,6 +77,7 @@ int fGame::run(fScene *scene)
 		{
 			_sceneSwitchRequested = false;
 			_currentScene->destroy();
+			delete _currentScene;
 			_currentScene = _nextScene;
 			_currentScene->init();
 		}
@@ -108,3 +110,4 @@ sf::Vector2u fGame::getWindowSize() const
 {
 	return _window.getSize();
 }
+

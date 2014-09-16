@@ -59,14 +59,14 @@ void fSpriteRenderer::updateTexCoords()
 /////////////////////////////////////////////////
 
 void fSpriteRenderer::draw(sf::RenderTarget &target, sf::RenderStates states) const
-{
-	if(_texture != NULL){
-		states.transform *= _transform->getTransform();
-		states.texture = _texture;
-		states.blendMode = _blendMode;
-		target.draw(_vertices, 4, sf::TrianglesStrip, states);
+	{
+		if(_texture != NULL){
+			states.transform *= _transform->getTransform();
+			states.texture = _texture;
+			states.blendMode = _blendMode;
+			target.draw(_vertices, 4, sf::TrianglesStrip, states);
+		}
 	}
-}
 
 /////////////////////////////////////////////////
 
@@ -173,7 +173,7 @@ bool fSpriteRenderer::isOnScreen()
 {
 	if(_texture)
 	{
-		const sf::FloatRect &cameraRegion = fGame::getGame().getCurrentScene()->getCamera().getBounds();
+		const sf::FloatRect cameraRegion = fGame::getGame().getCurrentScene()->getCamera().getBounds();
 		const sf::Vector2f &pos = _transform->getPosition();
 		const sf::Vector2f &origin = _transform->getOrigin();
 		const sf::Vector2u &texSize = _texture->getSize();
@@ -189,4 +189,3 @@ bool fSpriteRenderer::isOnScreen()
 		return false;
 	}
 }
-

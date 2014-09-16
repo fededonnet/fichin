@@ -127,7 +127,7 @@ protected:
 	/// \brief	Asigna un callback que va a ser llamado cada vez que termina una animación
 	/// \param callback 	std::function que recibe la referencia constante de un std::string
 	////////////////////////////////////////////////////////////
-	void setAnimationCallback(std::function<void(std::string const&)> callback);
+	void setAnimationEndCallback(std::function<void(std::string const&)> callback);
 	
 private:
 	const fAnimation *_animation;		///<	Objeto fAnimation asociado

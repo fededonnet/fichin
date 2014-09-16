@@ -1,6 +1,7 @@
 #ifndef __FTYPEDGROUP_HPP__
 #define __FTYPEDGROUP_HPP__
 #include <fichin/fActor.hpp>
+#include <fichin/fSprite.hpp>
 #include <vector>
 #include <iostream>
 using namespace std;
@@ -21,12 +22,36 @@ class fTypedGroup: public fActor
 {
 public:
 	////////////////////////////////////////////////////////////
+	/// \brief Constructor del grupo de T
+	///
+	/// Construye e inicializa un fTypedGroup.
+	///
+	////////////////////////////////////////////////////////////
+	fTypedGroup() {
+		fActor::CollidableObjectType type = fActor::CollidableObjectType::GROUP;
+		//---*Si el T es una clase que no deriva de fSprite, el tipo de colision del grupo es NONE
+		if(!std::is_base_of<fSprite, T>::value) {
+			type = fActor::CollidableObjectType::NONE;			
+		}	
+		setCollidableObjectType(type);		
+	}
+	
+	////////////////////////////////////////////////////////////
 	/// \brief 			Agrega un nuevo actor al grupo
 	///
 	/// \param newActor Actor que será agregado al grupo
 	///
 	////////////////////////////////////////////////////////////
 	void add(T *newActor);
+	
+	////////////////////////////////////////////////////////////
+	/// \brief Agrega un actor al grupo y lo retorna
+	///
+	///
+	/// \see fActor
+	///
+	////////////////////////////////////////////////////////////
+	T* add();	
 	
 	////////////////////////////////////////////////////////////
 	/// \brief 	Devuelve la cantidad de actores vivos que hay en el grupo
@@ -97,11 +122,20 @@ public:
 	////////////////////////////////////////////////////////////
 	virtual void draw(sf::RenderTarget &w, sf::RenderStates s) const;
 	
+	
 	////////////////////////////////////////////////////////////
 	/// \brief Destructor. Libera los elementos contenidos en el grupo
 	///
 	////////////////////////////////////////////////////////////
 	~fTypedGroup();
+	
+	////////////////////////////////////////////////////////////
+	/// \brief Retorna la referencia constante del vector de miembros de este grupo
+	///
+	////////////////////////////////////////////////////////////
+	std::vector<T*> const& getMembers();
+	
+	
 private:
 	
 	std::vector<T *> _members;	///< Los miembros del grupo
@@ -139,6 +173,14 @@ template <class T>
 inline void fTypedGroup<T>::add(T *newActor)
 {
 	_members.push_back(newActor);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+template <class T>
+inline T* fTypedGroup<T>::add()
+{
+	_members.emplace_back(new T());
+	return _members.back();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -237,6 +279,12 @@ template <class T>
 T *fTypedGroup<T>::operator[](int i)
 {
 	return _members[i];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+template <class T>
+inline std::vector<T*> const& fTypedGroup<T>::getMembers() {
+	return _members;
 }
 
 #endif // __TYPEDGROUP_HPP__

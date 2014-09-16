@@ -1,5 +1,8 @@
 #include <fichin/components/fAnimationController.hpp>
 #include <string>
+#include <iostream>
+using namespace std;
+
 ////////////////////////////////////////////////////////////////////////////////
 
 fAnimationController::fAnimationController(fSpriteRenderer &renderer):
@@ -16,7 +19,7 @@ _spritesheet(nullptr)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-void fAnimationController::setAnimationCallback(std::function<void(std::string const&)> callback) {
+void fAnimationController::setAnimationEndCallback(std::function<void(std::string const&)> callback) {
 	animationEndCallback = callback;
 }
 

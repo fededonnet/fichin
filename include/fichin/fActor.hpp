@@ -14,6 +14,11 @@
 class fActor: public sf::Drawable
 {
 public:
+	enum class CollidableObjectType {
+		NONE,
+		SPRITE,
+		GROUP
+	};
 	
 	////////////////////////////////////////////////////////////
 	/// \brief Constructor por defecto
@@ -103,9 +108,23 @@ public:
 	////////////////////////////////////////////////////////////
 	void revive();
 	
+	////////////////////////////////////////////////////////////
+	/// \brief Retorna el tipo de colision del fActor
+	///
+	/// 	Se usa para verificar si el fActor puede colisionar con otro actor
+	///		Si el type es NONE, el fActor no va a ser considerado para las colisiones.
+	/// \see fBoxCollider2D, fPhysicsWorld
+	///
+	////////////////////////////////////////////////////////////
+	CollidableObjectType const& getCollidableObjectType();
+	
+protected:	
+	void setCollidableObjectType(CollidableObjectType type);
+	
 private:
 	bool _alive;	///< si el actor éstá vivo (debe actualizarse)
 	bool _visible;	///< si el actor es visible (debe dibujarse)
+	CollidableObjectType _collidableType = CollidableObjectType::NONE; ///< tipo de colision que identifica al objeto fActor (NONE por defecto)
 };
 
 
@@ -133,6 +152,12 @@ inline void fActor::setVisible(bool visible) { _visible = visible; }
 
 ////////////////////////////////////////////////////////////////////////////////
 inline void fActor::revive() { _alive = _visible = true;  }
+
+////////////////////////////////////////////////////////////////////////////////
+inline void fActor::setCollidableObjectType(CollidableObjectType collidableType) { _collidableType = collidableType;};
+
+////////////////////////////////////////////////////////////////////////////////
+inline fActor::CollidableObjectType const& fActor::getCollidableObjectType() { return _collidableType;};
 
 #endif // __FACTOR_HPP__
 

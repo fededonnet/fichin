@@ -4,7 +4,9 @@
 //////////////////////////////////////////////
 
 fCamera::fCamera()
-{
+: _bounds()
+, _useBounds(false)
+, _target(nullptr) {
 	// por las dudas no asignemos un tamaño a la cámara, toma por defecto el tamaño de la ventana
 	const sf::Vector2u &size = fGame::getGame().getWindowSize();
 	setSize(size.x, size.y);

@@ -3,10 +3,11 @@
 #include <fichin/input/fKeyboard.hpp>
 #include <fichin/input/fMouse.hpp>
 
+fGame *fGame::_singletonInst = nullptr;		
+
 //////////////////////////////////////////////
 
-fGame::fGame(sf::VideoMode vm):
-_sceneSwitchRequested(false)
+void fGame::init(const sf::VideoMode &vm)
 {
 	_window.create(vm, "");
 	_window.setFramerateLimit(60);
@@ -14,6 +15,26 @@ _sceneSwitchRequested(false)
 	fKeyboard::init();
 	fMouse::init(_window);
 	srand (time(NULL));
+}
+
+//////////////////////////////////////////////
+
+fGame &fGame::getGame()
+{
+	if(_singletonInst == nullptr){
+		_singletonInst = new fGame;
+	}
+	return *_singletonInst;
+}
+
+//////////////////////////////////////////////
+
+fGame::fGame():
+_currentScene(nullptr),
+_nextScene(nullptr),
+_sceneSwitchRequested(false)
+{
+	
 }
 
 //////////////////////////////////////////////
@@ -31,21 +52,28 @@ int fGame::run(fScene *scene)
 	float dt = .0f;
 	
 	/// bucle de juego
-	while (!gameOver) {
-		while(_window.pollEvent(e)) {
-			if (e.type == sf::Event::Closed) {
+	while (!gameOver)
+	{
+		while(_window.pollEvent(e))
+		{
+			if (e.type == sf::Event::Closed)
+			{
 				gameOver = true;
 			}					
-		}	
+		}
+		
 		fKeyboard::update();
 		fMouse::update();
 		dt = clock.restart().asSeconds();
-		scene->update(dt);		
-		_window.clear(sf::Color::Black);
-		scene->draw(_window, states);
-		_window.display();		
+		_currentScene->update(dt);		
+		_window.clear(scene->getBgColor());
+		_currentScene->getCamera().update(dt);
+		_window.setView(_currentScene->getCamera());
+		_currentScene->draw(_window, states);
+		_window.display();
 		
-		if(_sceneSwitchRequested){
+		if(_sceneSwitchRequested)
+		{
 			_sceneSwitchRequested = false;
 			_currentScene->destroy();
 			_currentScene = _nextScene;
@@ -58,10 +86,25 @@ int fGame::run(fScene *scene)
 
 //////////////////////////////////////////////
 
-void fGame::switchScene(fScene *nextScene){
-	_nextScene = nextScene;
-	_sceneSwitchRequested = true;
+void fGame::switchScene(fScene *nextScene)
+{
+	if(_nextScene != _currentScene)
+	{
+		_nextScene = nextScene;
+		_sceneSwitchRequested = true;
+	}
 }
 
 //////////////////////////////////////////////
 
+fScene *fGame::getCurrentScene()
+{
+	return _currentScene;
+}
+
+//////////////////////////////////////////////
+
+sf::Vector2u fGame::getWindowSize() const
+{
+	return _window.getSize();
+}

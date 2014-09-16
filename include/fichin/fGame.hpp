@@ -22,7 +22,15 @@ public:
 	/// \param mode Tamaño y propiedades de la ventana de video
 	///
 	////////////////////////////////////////////////////////////
-	fGame(sf::VideoMode mode);
+	void init(const sf::VideoMode &mode);
+	
+	////////////////////////////////////////////////////////////
+	/// \brief 	Permite obtener el tamaño de la ventana de juego
+	///
+	/// \return El tamaño de la ventana de juego
+	///
+	////////////////////////////////////////////////////////////
+	static fGame &getGame();
 	
 	////////////////////////////////////////////////////////////
 	/// \brief Inicia el juego con la escena especificada
@@ -42,11 +50,31 @@ public:
 	void switchScene(fScene *nextScene);
 	
 	
+	////////////////////////////////////////////////////////////
+	/// \brief 	Devuelve la escena del juego que está ejecutándose
+	///
+	/// \return Escena actual
+	///
+	////////////////////////////////////////////////////////////
+	fScene *getCurrentScene();
+	
+	
+	////////////////////////////////////////////////////////////
+	/// \brief 	Permite obtener el tamaño de la ventana de juego
+	///
+	/// \return El tamaño de la ventana de juego
+	///
+	////////////////////////////////////////////////////////////
+	sf::Vector2u getWindowSize() const;
+	
 private:
-	fScene *_currentScene;		///< La escena actual
-	fScene *_nextScene;			///< La próxima escena, en caso de que se haya pedido un cambio de escena
-	bool _sceneSwitchRequested;	///< Indica si el usuario ha solicitado un cambio de escena
-	sf::RenderWindow _window;	///< La ventana de juego
+	fGame();							///< Constructor
+	static fGame *_singletonInst;		///< Instancia singleton de la clase
+	
+	fScene *_currentScene;				///< La escena actual
+	fScene *_nextScene;					///< La próxima escena, en caso de que se haya pedido un cambio de escena
+	bool _sceneSwitchRequested;			///< Indica si el usuario ha solicitado un cambio de escena
+	sf::RenderWindow _window;			///< La ventana de juego
 };
 
 #endif // __FGAME_HPP__

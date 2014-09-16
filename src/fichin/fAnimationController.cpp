@@ -19,7 +19,7 @@ _spritesheet(nullptr)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-void fAnimationController::setAnimationCallback(std::function<void(std::string const&) callback) {
+void fAnimationController::setAnimationCallback(std::function<void(std::string const&)> callback) {
 	animationEndCallback = callback;
 }
 

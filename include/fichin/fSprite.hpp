@@ -8,11 +8,12 @@
 #include <fichin/components/fSpriteRenderer.hpp>
 #include <fichin/components/fKinematicController.hpp>
 #include <fichin/components/fAnimationController.hpp>
+#include <fichin/components/fBoxCollider2D.hpp>
 
 /////////////////////////////////////////////////
 /// \brief Un actor con métodos para dibujarse, moverse y desplegar animaciones
 /////////////////////////////////////////////////
-class fSprite: public fActor, public sf::Transformable, public fSpriteRenderer, public fKinematicController, public fAnimationController{
+class fSprite: public fActor, public sf::Transformable, public fSpriteRenderer, public fKinematicController, public fAnimationController, public fBoxCollider2D {
 public:
 	
 	////////////////////////////////////////////////////////////

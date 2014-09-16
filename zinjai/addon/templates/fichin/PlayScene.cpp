@@ -13,7 +13,7 @@ void PlayScene::init(){
 	a->setTexture("assets/img/SoccerBall.png");
 	// cambia la velocidad en X del sprite
 	a->setVelocityX(30);
-	// agrega el sprite a la escena
+	// agrega esfml-graphics sfml-audio sfml-network sfml-window sfml-systeml sprite a la escena
 	add(a);
 }
 

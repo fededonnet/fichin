@@ -18,10 +18,10 @@ _texture(nullptr)
 
 //////////////////////////////////////////////
 
-void fTilemap::loadFromCSVFile(const std::string &filename, int widthInTiles, int heightInTiles, const sf::Texture &tileset, int tileWidth, int tileHeight)
+void fTilemap::loadFromCSVFile(const std::string &filename, int heightInTiles, int widthInTiles, const std::string &tileset, int tileWidth, int tileHeight)
 {
 	resizeTilemap(heightInTiles, widthInTiles);
-	_texture = &tileset;
+	_texture = &fResourceManager::loadFromFile<sf::Texture>(tileset);
 	_tileWidth = tileWidth;
 	_tileHeight = tileHeight;
 	ifstream input(filename.c_str());
@@ -44,10 +44,10 @@ void fTilemap::loadFromCSVFile(const std::string &filename, int widthInTiles, in
 
 //////////////////////////////////////////////
 
-void fTilemap::loadFromMemory(int *data, int widthInTiles, int heightInTiles, const sf::Texture &tileset, int tileWidth, int tileHeight)
+void fTilemap::loadFromMemory(int *data, int heightInTiles, int widthInTiles, const std::string &tileset, int tileWidth, int tileHeight)
 {
 	resizeTilemap(widthInTiles, heightInTiles);
-	_texture = &tileset;
+	_texture = &fResourceManager::loadFromFile<sf::Texture>(tileset);
 	_tileWidth = tileWidth;
 	_tileHeight = tileHeight;
 	for(int i = 0; i<heightInTiles*widthInTiles; i++)
@@ -134,4 +134,9 @@ sf::Vector2f fTilemap::getTileCoords(int i)
 }
 
 
+//////////////////////////////////////////////
 
+sf::FloatRect fTilemap::getBounds(){
+	sf::Vector2f pos = getPosition();
+	return sf::FloatRect(pos.x, pos.y, pos.x+_width*_tileWidth, pos.y + _height*_tileHeight);
+}

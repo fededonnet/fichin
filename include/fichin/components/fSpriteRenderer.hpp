@@ -24,7 +24,7 @@ public:
 	///				se dibujará la textura
 	///
 	////////////////////////////////////////////////////////////
-	fSpriteRenderer(const sf::Transformable &t);
+	fSpriteRenderer(sf::Transformable &t);
 	
 	////////////////////////////////////////////////////////////
 	/// \brief			Indica si la textura debe dibujarse
@@ -137,7 +137,15 @@ public:
 	///	\return 	Región de textura que es dibujada en pantalla
 	///
 	////////////////////////////////////////////////////////////
-	inline const sf::IntRect &getTextureRect();
+	const sf::IntRect &getTextureRect();
+	
+	
+	////////////////////////////////////////////////////////////
+	/// \brief		Permite conocer si el sprite se encuentra dentro
+	///				de la región visible por la cámara
+	///
+	////////////////////////////////////////////////////////////
+	bool isOnScreen();
 	
 	////////////////////////////////////////////////////////////
 	/// \brief Dibuja al sprite en pantalla 
@@ -150,12 +158,18 @@ public:
 	////////////////////////////////////////////////////////////
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 	
+	////////////////////////////////////////////////////////////
+	/// \brief Posiciona el centro de rotación del sprite en el centro
+	///
+	////////////////////////////////////////////////////////////
+	void centerOrigin();
+	
 protected:
 	void updatePositions();					///< Actualiza las coordenadas de los vértices del sprite
 	void updateTexCoords();					///< Actualiza las coordenadas de textura de los vértices del sprite
 	
 private:
-	const sf::Transformable *_transform;	///< Transformada utilizada para posicionar el sprite
+	sf::Transformable *_transform;	///< Transformada utilizada para posicionar el sprite
 	sf::Vertex _vertices[4];				///< Vértices del sprite
 	sf::BlendMode _blendMode;				///< Modo de blending
 	const sf::Texture *_texture;			///< Textura utilizada para dibujar el sprite

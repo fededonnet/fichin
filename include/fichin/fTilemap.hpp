@@ -31,31 +31,31 @@ public:
 	///			con valores separados por coma
 	///
 	///	\param	filaname		Nombre del archivo de texto que contiene los datos del tilemap
-	///	\param	widthInTiles	Ancho del tilemap (en tiles)
 	///	\param	heightInTiles	Alto del tilemap (en tiles)
-	///	\param	tileset			Textura con el tileset a utilizar
+	///	\param	widthInTiles	Ancho del tilemap (en tiles)
+	///	\param	tileset			Nombre del archivo de textura con el tileset a utilizar
 	///	\param	tileWidth		Ancho del los patrones del tileset
 	///	\param	tileHeight		Alto del los patrones del tileset
 	///
 	///	\see loadFromMemory
 	///
 	////////////////////////////////////////////////////////////
-	void loadFromCSVFile(const std::string &filaname, int widthInTiles, int heightInTiles, const sf::Texture &tileset, int tileWidth, int tileHeight);
+	void loadFromCSVFile(const std::string &filaname, int heightInTiles, int widthInTiles, const std::string &tileset, int tileWidth, int tileHeight);
 	
 	////////////////////////////////////////////////////////////
 	/// \brief 	Carga los datos de un tilemap desde memoria
 	///
 	///	\param	data			Puntero a la memoria que contiene los datos del tilemap
-	///	\param	widthInTiles	Ancho del tilemap (en tiles)
 	///	\param	heightInTiles	Alto del tilemap (en tiles)
-	///	\param	tileset			Textura con el tileset a utilizar
+	///	\param	widthInTiles	Ancho del tilemap (en tiles)
+	///	\param	tileset			Nombre del archivo de textura con el tileset a utilizar
 	///	\param	tileWidth		Ancho del los patrones del tileset
 	///	\param	tileHeight		Alto del los patrones del tileset
 	///
 	///	\see loadFromCSVFile
 	///
 	////////////////////////////////////////////////////////////
-	void loadFromMemory(int *data, int widthInTiles, int heightInTiles, const sf::Texture &tileset, int tileWidth, int tileHeight);
+	void loadFromMemory(int *data, int heightInTiles, int widthInTiles, const std::string &tileset, int tileWidth, int tileHeight);
 	
 	////////////////////////////////////////////////////////////
 	/// \brief Dibuja el tilemap. Es llamada automáticamente por la escena. 
@@ -89,6 +89,14 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	sf::Vector2f getTileCoords(int i);
+	
+	////////////////////////////////////////////////////////////
+	/// \brief 		Devuelve la porción rectangular del espacio que ocupa el tilemap
+	///
+	/// \return		Rectángulo que indica la región que ocupa el tilemap
+	///
+	////////////////////////////////////////////////////////////
+	sf::FloatRect getBounds();
 	
 private:
 	std::vector<int> _tiles;		/// numeros de los patrones del tilemap

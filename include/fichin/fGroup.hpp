@@ -5,7 +5,7 @@
 // Headers
 ////////////////////////////////////////////////////////////
 #include <vector>
-#include <fichin/fActor.hpp>
+#include <fichin/fTypedGroup.hpp>
 
 ////////////////////////////////////////////////////////////
 /// \brief 	Un actor especial que puede contener a otros
@@ -14,52 +14,13 @@
 /// \see fActor, fScene
 ///
 ////////////////////////////////////////////////////////////
-class fGroup: public fActor
+class fGroup: public fTypedGroup<fActor>
 {
 public:
-	////////////////////////////////////////////////////////////
-	/// \brief Actualiza grupo de actores
-	///
-	/// Es llamada automáticamente por la escena para actualizar
-	/// al grupo.
-	///
-	/// \param dt Tiempo transcurrido desde la última actualización
-	///
-	////////////////////////////////////////////////////////////
-	virtual void update(float dt);
 	
-	////////////////////////////////////////////////////////////
-	/// \brief Dibuja el grupo de actores
-	///
-	/// Dibuja al grupo en la ventana target con los estados states.
-	/// Es llamada automáticamente por la escena. 
-	///
-	/// \param target La ventana en donde se debe dibujar al actor
-	/// \param states Estados para el dibujado del actor en la ventana
-	///
-	/// \see sf::RenderTarget, sf::RenderStates
-	///
-	////////////////////////////////////////////////////////////
-	virtual void draw(sf::RenderTarget &w, sf::RenderStates s) const;
-	
-	////////////////////////////////////////////////////////////
-	/// \brief Agrega un actor al grupo
-	///
-	/// \param actor El actor que será agregado al grupo
-	///
-	/// \see fActor
-	///
-	////////////////////////////////////////////////////////////
-	void add(fActor *actor);
-	
-	////////////////////////////////////////////////////////////
-	/// \brief Destructor
-	///
-	////////////////////////////////////////////////////////////
-	virtual ~fGroup();
 	
 private:
-	std::vector<fActor *> _members;	///< Los actores que componen el grupo
+	fActor *recycle();
 };
 #endif // __FGROUP_HPP__
 

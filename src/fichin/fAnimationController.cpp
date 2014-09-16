@@ -1,8 +1,5 @@
 #include <fichin/components/fAnimationController.hpp>
 #include <string>
-#include <iostream>
-using namespace std;
-
 ////////////////////////////////////////////////////////////////////////////////
 
 fAnimationController::fAnimationController(fSpriteRenderer &renderer):
@@ -83,7 +80,6 @@ void fAnimationController::setFrame(int frame)
 
 void fAnimationController::updateAnimation(float dt)
 {
-	cout<<_isPlaying<<" "<<_animation <<" "<<_spritesheet <<endl;
 	if(_isPlaying && _animation != nullptr && _spritesheet != nullptr)
 	{
 		_frameElapsed += dt;

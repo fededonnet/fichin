@@ -39,3 +39,9 @@ void fCamera::update(float td)
 		setCenter(newCenter);
 	}
 }
+
+//////////////////////////////////////////////
+
+sf::FloatRect fCamera::getBounds() const {
+	return sf::FloatRect(getCenter().x - getSize().x/2.0, getCenter().y - getSize().y/2.0, getSize().x, getSize().y);
+}

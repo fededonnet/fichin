@@ -1,10 +1,12 @@
 #include <fichin/components/fSpriteRenderer.hpp>
 #include <fichin/fResourceManager.hpp>
+#include <fichin/fGame.hpp>
 
 /////////////////////////////////////////////////
 
-fSpriteRenderer::fSpriteRenderer(const sf::Transformable &t):
+fSpriteRenderer::fSpriteRenderer(sf::Transformable &t):
 _transform(&t),
+_blendMode(sf::BlendMode::BlendAlpha),
 _texture(nullptr),
 _textureRect(nullptr),
 _flipX(false),
@@ -133,6 +135,7 @@ void fSpriteRenderer::setTexture(const sf::Texture *texture, const sf::IntRect *
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
 void fSpriteRenderer::flipX(bool flip)
 { 
 	_flipX = flip;
@@ -140,9 +143,50 @@ void fSpriteRenderer::flipX(bool flip)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
 void fSpriteRenderer::flipY(bool flip)
 {
 	_flipY = flip;
 	updateTexCoords();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+void fSpriteRenderer::centerOrigin()
+{
+	sf::Vector2f center;
+	if(_textureRect != nullptr){
+		center.x = _textureRect->width/2.0;
+		center.y = _textureRect->height/2.0;
+	}else if(_texture != nullptr){
+		center.x = _texture->getSize().x/2.0;
+		center.y = _texture->getSize().y/2.0;
+	}else{
+		center.x = center.y = 0;
+	}
+	_transform->setOrigin(center.x, center.y);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+bool fSpriteRenderer::isOnScreen()
+{
+	if(_texture)
+	{
+		const sf::FloatRect &cameraRegion = fGame::getGame().getCurrentScene()->getCamera().getBounds();
+		const sf::Vector2f &pos = _transform->getPosition();
+		const sf::Vector2f &origin = _transform->getOrigin();
+		const sf::Vector2u &texSize = _texture->getSize();
+		sf::FloatRect spriteRect;
+		spriteRect.left  	= pos.x - origin.x;
+		spriteRect.width 	= _textureRect != nullptr?_textureRect->width:texSize.x;
+		spriteRect.top 		= pos.y - origin.y;
+		spriteRect.height 	= _textureRect != nullptr?_textureRect->height:texSize.y;
+		return cameraRegion.intersects(spriteRect);
+	}
+	else
+	{
+		return false;
+	}
 }
 

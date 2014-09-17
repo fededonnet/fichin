@@ -17,10 +17,9 @@
 class fGroup: public fTypedGroup<fActor>
 {
 public:
+	fGroup() {};
+	~fGroup() {};
 	
-	
-private:
-	fActor *recycle();
 };
 #endif // __FGROUP_HPP__
 

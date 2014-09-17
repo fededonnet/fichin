@@ -7,9 +7,8 @@ fSprite::fSprite():
 fSpriteRenderer(static_cast<sf::Transformable &>(*this)),
 fKinematicController(static_cast<sf::Transformable &>(*this)),
 fAnimationController(static_cast<fSpriteRenderer &>(*this))
-, fBoxCollider2D(this) 
-{
-	
+, fBoxCollider2D(this) {
+	setCollidableObjectType(fActor::CollidableObjectType::SPRITE);
 }
 
 /////////////////////////////////////////////////

@@ -30,11 +30,10 @@ fGame &fGame::getGame()
 
 //////////////////////////////////////////////
 
-fGame::fGame():
-_currentScene(nullptr),
-_nextScene(nullptr),
-_sceneSwitchRequested(false)
-{
+fGame::fGame()
+: _currentScene(nullptr)
+, _nextScene(nullptr)
+, _sceneSwitchRequested(false) {
 	
 }
 
@@ -67,7 +66,7 @@ int fGame::run(fScene *scene)
 		fMouse::update();
 		dt = clock.restart().asSeconds();
 		_currentScene->update(dt);		
-		_window.clear(scene->getBgColor());
+		_window.clear(_currentScene->getBgColor());
 		_currentScene->getCamera().update(dt);
 		_window.setView(_currentScene->getCamera());
 		_currentScene->draw(_window, states);
@@ -89,12 +88,9 @@ int fGame::run(fScene *scene)
 //////////////////////////////////////////////
 
 void fGame::switchScene(fScene *nextScene)
-{
-	if(_nextScene != _currentScene)
-	{
-		_nextScene = nextScene;
-		_sceneSwitchRequested = true;
-	}
+{		
+	_nextScene = nextScene;
+	_sceneSwitchRequested = true;	
 }
 
 //////////////////////////////////////////////

@@ -36,6 +36,13 @@ public:
 		setCollidableObjectType(type);		
 	}
 	
+	
+	////////////////////////////////////////////////////////////
+	/// \brief Destructor. Libera los elementos contenidos en el grupo
+	///
+	////////////////////////////////////////////////////////////
+	virtual ~fTypedGroup();
+	
 	////////////////////////////////////////////////////////////
 	/// \brief 			Agrega un nuevo actor al grupo
 	///
@@ -43,16 +50,7 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	void add(T *newActor);
-	
-	////////////////////////////////////////////////////////////
-	/// \brief Agrega un actor al grupo y lo retorna
-	///
-	///
-	/// \see fActor
-	///
-	////////////////////////////////////////////////////////////
-	T* add();	
-	
+		
 	////////////////////////////////////////////////////////////
 	/// \brief 	Devuelve la cantidad de actores vivos que hay en el grupo
 	///
@@ -121,20 +119,12 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	virtual void draw(sf::RenderTarget &w, sf::RenderStates s) const;
-	
-	
-	////////////////////////////////////////////////////////////
-	/// \brief Destructor. Libera los elementos contenidos en el grupo
-	///
-	////////////////////////////////////////////////////////////
-	~fTypedGroup();
-	
+			
 	////////////////////////////////////////////////////////////
 	/// \brief Retorna la referencia constante del vector de miembros de este grupo
 	///
 	////////////////////////////////////////////////////////////
-	std::vector<T*> const& getMembers();
-	
+	std::vector<T*> const& getMembers();	
 	
 private:
 	
@@ -150,7 +140,7 @@ private:
 template <class T>
 inline void fTypedGroup<T>::update(float dt)
 {
-	for(int i = 0; i<_members.size(); i++)
+	for(size_t i = 0; i<_members.size(); i++)
 	{
 		if(_members[i]->isAlive())
 			_members[i]->update(dt);
@@ -161,7 +151,7 @@ inline void fTypedGroup<T>::update(float dt)
 template <class T>
 inline void fTypedGroup<T>::draw(sf::RenderTarget &w, sf::RenderStates s) const
 {
-	for(int i = 0; i<_members.size(); i++)
+	for(size_t i = 0; i<_members.size(); i++)
 	{
 		if(_members[i]->isVisible())
 			_members[i]->draw(w, s);
@@ -177,18 +167,10 @@ inline void fTypedGroup<T>::add(T *newActor)
 
 ////////////////////////////////////////////////////////////////////////////////
 template <class T>
-inline T* fTypedGroup<T>::add()
-{
-	_members.emplace_back(new T());
-	return _members.back();
-}
-
-////////////////////////////////////////////////////////////////////////////////
-template <class T>
 inline unsigned fTypedGroup<T>::countAlive() const
 {
 	unsigned alive = 0;
-	for(int i = 0; i<_members.size(); i++)
+	for(size_t i = 0; i<_members.size(); i++)
 	{
 		if(_members[i]->isAlive())
 		{
@@ -203,7 +185,7 @@ template <class T>
 inline unsigned fTypedGroup<T>::countDead() const
 	{
 		unsigned dead = 0;
-		for(int i = 0; i<_members.size(); i++)
+		for(size_t i = 0; i<_members.size(); i++)
 		{
 			if(!_members[i]->isAlive())
 			{
@@ -218,7 +200,7 @@ template <class T>
 inline T *fTypedGroup<T>::getFirstAlive()
 {
 	// busca el primer actor vivo y lo devuelve
-	for(int i = 0; i<_members.size(); i++)
+	for(size_t i = 0; i<_members.size(); i++)
 	{
 		if(_members[i]->isAlive())
 		{
@@ -234,7 +216,7 @@ template <class T>
 inline T *fTypedGroup<T>::getFirstDead()
 {
 	// busca el primer actor no vivo y lo devuelve
-	for(int i = 0; i<_members.size(); i++)
+	for(size_t i = 0; i<_members.size(); i++)
 	{
 		if(!_members[i]->isAlive())
 		{
@@ -267,11 +249,11 @@ inline unsigned fTypedGroup<T>::size() const
 ////////////////////////////////////////////////////////////////////////////////
 template <class T>
 inline fTypedGroup<T>::~fTypedGroup()
-{
-	for(int i = 0; i<_members.size(); i++)
-	{
-		delete _members[i];
+{	
+	for(size_t i = 0; i<_members.size(); i++) {		
+		delete _members[i];		
 	}
+	_members.clear();
 }
 
 ////////////////////////////////////////////////////////////////////////////////

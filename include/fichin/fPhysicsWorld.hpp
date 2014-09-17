@@ -51,21 +51,6 @@ public:
 	};	
 	
 	////////////////////////////////////////////////////////////
-	/// \brief Setea el worldLimits
-	/// \param sf::Rect<int>: Rect que va a representar los limites del mundo.
-	////////////////////////////////////////////////////////////
-	static void setWorldLimits(sf::Rect<int> const& rect);
-	////////////////////////////////////////////////////////////
-	/// \brief Setea los limites del worldLimits
-	///
-	/// \param x: Left del rect
-	/// \param y: Top del rect
-	/// \param w: Width del rect
-	/// \param h: Height del rect
-	////////////////////////////////////////////////////////////
-	static void setWorldLimits(int x, int y, int w, int h);		
-		
-	////////////////////////////////////////////////////////////
 	/// \brief Funcion auxiliar que chequea si ambos actores son el mismo.
 	///			util cuando necesitamos chequear colisiones que implican grupos de actores.
 	///
@@ -74,23 +59,7 @@ public:
 	/// \return Flag que indica si son el mismo fActor.
 	////////////////////////////////////////////////////////////
 	static bool isSameActor(fActor*, fActor*);
-	
-	////////////////////////////////////////////////////////////
-	/// \brief Chequea si un sprite se encuentra fuera de los limites del mundo
-	///
-	/// \param fSprite*: Puntero del sprite a chequear
-	/// \param std::function<void(fActor*)>: function que retorna un puntero de fActor
-	////////////////////////////////////////////////////////////
-	static void spriteOutsideWorldLimits(fSprite* sprite, std::function<void(fActor*)> callback);
-	
-	////////////////////////////////////////////////////////////
-	/// \brief Chequea si un actor se encuentra fuera de los limites del mundo
-	///
-	/// \param fActor*: Puntero del fActor a chequear
-	/// \param std::function<void(fActor*)>: function que retorna un puntero de fActor
-	////////////////////////////////////////////////////////////
-	static void actorOutsideWorldLimits(fActor* actor, std::function<void(fActor*)> callback);
-	
+		
 	////////////////////////////////////////////////////////////
 	/// \brief Chequea si un fSprite colisiona con otro fSprite
 	///
@@ -99,7 +68,6 @@ public:
 	/// \return Flag que indica si hay colision entre ambos fSprites
 	////////////////////////////////////////////////////////////
 	static bool spriteVSsprite(fSprite*,fSprite*);
-	
 	
 	////////////////////////////////////////////////////////////
 	/// \brief Funcion overlap. Chequea si 2 entidades colisionan
@@ -146,7 +114,6 @@ public:
 	};	
 	
 private:
-	static sf::Rect<int> _worldLimits;	
 	
 	////////////////////////////////////////////////////////////
 	/// \brief Chequea si el actor se encuentra  dentro de un sf::Rect<int>

@@ -142,7 +142,7 @@ private:
 inline fActor::fActor(){_visible = _alive = true; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline fActor::~fActor() {};
+inline fActor::~fActor() {}
 
 ////////////////////////////////////////////////////////////////////////////////
 inline void fActor::update(float dt){}
@@ -160,13 +160,13 @@ inline void fActor::kill() { _alive = false; _visible = false; }
 inline void fActor::setVisible(bool visible) { _visible = visible; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline void fActor::revive() { _alive = _visible = true;  }
+inline void fActor::revive() { _alive = _visible = true; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline void fActor::setCollidableObjectType(CollidableObjectType collidableType) { _collidableType = collidableType;};
+inline void fActor::setCollidableObjectType(CollidableObjectType collidableType) { _collidableType = collidableType;}
 
 ////////////////////////////////////////////////////////////////////////////////
-inline fActor::CollidableObjectType const& fActor::getCollidableObjectType() { return _collidableType;};
+inline fActor::CollidableObjectType const& fActor::getCollidableObjectType() { return _collidableType;}
 
 #endif // __FACTOR_HPP__
 

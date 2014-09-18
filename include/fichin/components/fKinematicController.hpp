@@ -307,82 +307,82 @@ private:
 ////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
-inline void fKinematicController::setVelocity(sf::Vector2f newVel) { _velocity = newVel; };
+inline void fKinematicController::setVelocity(sf::Vector2f newVel) { _velocity = newVel; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline void fKinematicController::setVelocity(float velx, float vely) { _velocity.x = velx; _velocity.y = vely; };
+inline void fKinematicController::setVelocity(float velx, float vely) { _velocity.x = velx; _velocity.y = vely; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline void fKinematicController::setVelocityX(float velx) { _velocity.x = velx; };
+inline void fKinematicController::setVelocityX(float velx) { _velocity.x = velx; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline void fKinematicController::setVelocityY(float vely) { _velocity.y = vely; };
+inline void fKinematicController::setVelocityY(float vely) { _velocity.y = vely; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline void fKinematicController::setAcceleration(sf::Vector2f newAcc) { _acceleration = newAcc; };
+inline void fKinematicController::setAcceleration(sf::Vector2f newAcc) { _acceleration = newAcc; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline void fKinematicController::setAcceleration(float accx, float accy) { _acceleration.x = accx; _acceleration.y = accy; };
+inline void fKinematicController::setAcceleration(float accx, float accy) { _acceleration.x = accx; _acceleration.y = accy; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline void fKinematicController::setAccelerationX(float accx) { _acceleration.x = accx; };
+inline void fKinematicController::setAccelerationX(float accx) { _acceleration.x = accx; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline void fKinematicController::setAccelerationY(float accy) { _acceleration.y = accy; };
+inline void fKinematicController::setAccelerationY(float accy) { _acceleration.y = accy; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline void fKinematicController::setDrag(sf::Vector2f newDrag) { _drag = newDrag; };
+inline void fKinematicController::setDrag(sf::Vector2f newDrag) { _drag = newDrag; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline void fKinematicController::setDrag(float dragx, float dragy) { _drag.x = dragx; _drag.y = dragy; };
+inline void fKinematicController::setDrag(float dragx, float dragy) { _drag.x = dragx; _drag.y = dragy; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline void fKinematicController::setDragX(float dragx) { _drag.x = dragx; };
+inline void fKinematicController::setDragX(float dragx) { _drag.x = dragx; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline void fKinematicController::setDragY(float dragy) { _drag.y = dragy; };
+inline void fKinematicController::setDragY(float dragy) { _drag.y = dragy; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline void fKinematicController::setMaxVelocity(sf::Vector2f newMaxVel) { _velocity = newMaxVel; };
+inline void fKinematicController::setMaxVelocity(sf::Vector2f newMaxVel) { _velocity = newMaxVel; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline void fKinematicController::setMaxVelocity(float maxvelx, float maxvely) { _maxVelocity.x = maxvelx; _maxVelocity.y = maxvely; };
+inline void fKinematicController::setMaxVelocity(float maxvelx, float maxvely) { _maxVelocity.x = maxvelx; _maxVelocity.y = maxvely; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline void fKinematicController::setMaxVelocityX(float maxvelx) { _maxVelocity.x = maxvelx; };
+inline void fKinematicController::setMaxVelocityX(float maxvelx) { _maxVelocity.x = maxvelx; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline void fKinematicController::setMaxVelocityY(float maxvely) { _maxVelocity.y = maxvely; };
+inline void fKinematicController::setMaxVelocityY(float maxvely) { _maxVelocity.y = maxvely; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline void fKinematicController::setAngularVelocity(float angularVel) { _angularVelocity = angularVel; };
+inline void fKinematicController::setAngularVelocity(float angularVel) { _angularVelocity = angularVel; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline void fKinematicController::setAngularAcceleration(float angularAcc) { _angularAcceleration = angularAcc; };
+inline void fKinematicController::setAngularAcceleration(float angularAcc) { _angularAcceleration = angularAcc; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline void fKinematicController::setAngularDrag(float angularDrag) { _angularDrag = angularDrag; };
+inline void fKinematicController::setAngularDrag(float angularDrag) { _angularDrag = angularDrag; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline void fKinematicController::setMaxAngularVelocity(float maxAngular) {_maxAngularVelocity = maxAngular; };
+inline void fKinematicController::setMaxAngularVelocity(float maxAngular) {_maxAngularVelocity = maxAngular; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline const sf::Vector2f &fKinematicController::getVelocity() const { return _velocity; };
+inline const sf::Vector2f &fKinematicController::getVelocity() const { return _velocity; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline const sf::Vector2f &fKinematicController::getAcceleration() const { return _acceleration; };
+inline const sf::Vector2f &fKinematicController::getAcceleration() const { return _acceleration; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline const sf::Vector2f &fKinematicController::getDrag() const { return _drag; };
+inline const sf::Vector2f &fKinematicController::getDrag() const { return _drag; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline const sf::Vector2f &fKinematicController::getMaxVelocity() const { return _maxVelocity; };
+inline const sf::Vector2f &fKinematicController::getMaxVelocity() const { return _maxVelocity; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline float fKinematicController::getAngularVelocity() const { return _angularVelocity; };
+inline float fKinematicController::getAngularVelocity() const { return _angularVelocity; }
 
 ////////////////////////////////////////////////////////////////////////////////
-inline float fKinematicController::getMaxAngularVelocity() const { return _maxAngularVelocity; };
+inline float fKinematicController::getMaxAngularVelocity() const { return _maxAngularVelocity; }
 
 #endif // __FKINEMATICCONTROLLER_HPP__
 
